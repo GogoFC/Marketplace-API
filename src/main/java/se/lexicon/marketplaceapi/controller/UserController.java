@@ -1,0 +1,40 @@
+package se.lexicon.marketplaceapi.controller;
+
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.GsonBuilderUtils;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import se.lexicon.marketplaceapi.dto.UserDTOForm;
+import se.lexicon.marketplaceapi.dto.UserDTOView;
+import se.lexicon.marketplaceapi.service.UserService;
+
+@RequestMapping("/api/v1/users")
+@RestController
+public class UserController {
+
+    UserService userService;
+
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+
+    @PostMapping("/")
+    public ResponseEntity<UserDTOView> register(@RequestBody @Valid UserDTOForm userDTOForm){
+        System.out.println("registering...");
+        UserDTOView registered = userService.register(userDTOForm);
+        return ResponseEntity.status(HttpStatus.CREATED).body(registered);
+    }
+    /*
+    public UserDTOView register(UserDTOForm userDTOForm) {
+        return userService.register(userDTOForm);
+    }
+    Didn't work
+     */
+}
