@@ -25,16 +25,24 @@ public class UserController {
     }
 
 
+
     @PostMapping("/")
     public ResponseEntity<UserDTOView> register(@RequestBody @Valid UserDTOForm userDTOForm){
-        System.out.println("registering...");
+        //System.out.println("registering...");
         UserDTOView registered = userService.register(userDTOForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(registered);
     }
+
+
+
+
     /*
-    public UserDTOView register(UserDTOForm userDTOForm) {
+    @PostMapping("/")
+    public UserDTOView register(@RequestBody @Valid UserDTOForm userDTOForm) {
         return userService.register(userDTOForm);
     }
-    Didn't work
+    //This also works. Delegate Method
+
      */
+
 }

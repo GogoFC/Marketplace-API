@@ -34,4 +34,9 @@ public class UserServiceImpl implements UserService{
 
     }
 
+    //TODO
+    @Override
+    public UserDTOView deactivate(UserDTOForm userDTOForm) {
+        return null;
+    }
 }

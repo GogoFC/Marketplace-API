@@ -7,4 +7,6 @@ public interface UserService {
 
     UserDTOView register (UserDTOForm userDTOForm);
 
+    UserDTOView deactivate (UserDTOForm userDTOForm);
+
 }
