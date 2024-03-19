@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -32,6 +35,13 @@ public class User {
 
     private String lastName;
 
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JoinColumn(name = "ad_id")
+    private Set<Ad> ads = new HashSet<>();
+
 
     public User(String email, String username, String password) {
         this.email = email;
@@ -46,7 +56,7 @@ public class User {
         this.lastName = lastName;
     }
 
-    //  private Set<ItemAd> itemsForSale = new HashSet<>();
+
     
     
 }
