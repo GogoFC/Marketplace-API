@@ -13,7 +13,7 @@ import se.lexicon.marketplaceapi.dto.UserDTOForm;
 import se.lexicon.marketplaceapi.dto.UserDTOView;
 import se.lexicon.marketplaceapi.service.UserService;
 
-@RequestMapping("/api/v1/users")
+@RequestMapping("/api/v1/user")
 @RestController
 public class UserController {
 

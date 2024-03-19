@@ -1,7 +1,6 @@
 package se.lexicon.marketplaceapi.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,7 +10,6 @@ import java.util.Set;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class User {
@@ -43,13 +41,14 @@ public class User {
     private Set<Ad> ads = new HashSet<>();
 
 
-    public User(String email, String username, String password) {
+    public User(String username, String email, String password) {
         this.email = email;
         this.username = username;
         this.password = password;
     }
 
-    public User(String email, String password, String firstName, String lastName) {
+    public User(String username, String email, String password, String firstName, String lastName) {
+        this.username = username;
         this.email = email;
         this.password = password;
         this.firstName = firstName;
