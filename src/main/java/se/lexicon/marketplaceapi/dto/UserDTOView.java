@@ -11,4 +11,6 @@ public class UserDTOView {
 
     private String email;
 
+    private String username;
+
 }

@@ -1,5 +1,6 @@
 package se.lexicon.marketplaceapi.service;
 
+import jakarta.jws.soap.SOAPBinding;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserDTOView register(UserDTOForm userDTOForm) {
-        User user = new User(userDTOForm.getEmail(),passwordEncoder.encode(userDTOForm.getPassword()));
+        User user = new User(userDTOForm.getUsername(), passwordEncoder.encode(userDTOForm.getPassword()),userDTOForm.getEmail());
 
         User savedUser = userRepository.save(user);
 

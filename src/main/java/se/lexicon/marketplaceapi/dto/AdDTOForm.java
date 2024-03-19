@@ -7,9 +7,15 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserDetailsDTOForm {
+public class AdDTOForm {
 
-    private String firstName;
+    private String title;
 
-    private String lastName;
+    private String description;
+
+    private UserDTOForm userDTOForm;
+
+
+
+
 }

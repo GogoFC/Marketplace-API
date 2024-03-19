@@ -14,25 +14,39 @@ import lombok.Setter;
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
     @Column(updatable = false)
     private String email;
+
+    @Column(updatable = false)
+    private String username;
+
 
     //Below value of 50 gave error.
     @Column(nullable = false, length = 100)
     private String password;
 
+    private String firstName;
 
-    //Moving to UserDetails.
-    @OneToOne
-    //@JoinColumn(name = "user_details_id", referencedColumnName = "id")
-    private UserDetails userDetails;
+    private String lastName;
 
 
-
-    public User(String email, String password) {
+    public User(String email, String username, String password) {
         this.email = email;
+        this.username = username;
         this.password = password;
     }
-    //AllArgsConstructor annotation conflicts with this redundant constructor, after I deleted userDetails.
 
+    public User(String email, String password, String firstName, String lastName) {
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    //  private Set<ItemAd> itemsForSale = new HashSet<>();
+    
+    
 }
