@@ -16,5 +16,9 @@ public class UserDTOForm {
 
     private String username;
 
+    private String lastName;
+
+    private String firstName;
+
 
 }

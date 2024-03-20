@@ -1,6 +1,6 @@
 package se.lexicon.marketplaceapi.service;
 
-import jakarta.jws.soap.SOAPBinding;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,25 +16,34 @@ public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
 
+    private final AdService adService;
+
+
     @Autowired
-    public UserServiceImpl( UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl( UserRepository userRepository, PasswordEncoder passwordEncoder, AdService adService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.adService = adService;
 
     }
 
     @Override
     public UserDTOView register(UserDTOForm userDTOForm) {
         User user = new User(userDTOForm.getUsername(), userDTOForm.getEmail(), passwordEncoder.encode(userDTOForm.getPassword()));
+        User user1 = new User(userDTOForm.getEmail(),userDTOForm.getUsername(),passwordEncoder.encode(userDTOForm.getPassword()),userDTOForm.getFirstName(),userDTOForm.getLastName());
+
 
         // Below gave error. Username was email and email was password in database
         // User user = new User(userDTOForm.getUsername(), passwordEncoder.encode(userDTOForm.getPassword()), userDTOForm.getEmail());
 
-        User savedUser = userRepository.save(user);
+        User savedUser = userRepository.save(user1);
+
 
         return UserDTOView.builder()
                 .username(savedUser.getUsername())
                 .email(savedUser.getEmail())
+                .firstName(savedUser.getFirstName())
+                .lastName(savedUser.getLastName())
                 .build();
 
     }
@@ -43,8 +52,13 @@ public class UserServiceImpl implements UserService{
     public UserDTOView postAdvertisement(UserDTOForm userDTOForm) {
 
     }
-    
+
      */
+
+    @Override
+    public UserDTOView postAd(UserDTOForm userDTOForm) {
+        return null;
+    }
 
     //TODO
     @Override

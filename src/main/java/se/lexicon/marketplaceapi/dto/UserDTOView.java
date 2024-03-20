@@ -13,5 +13,9 @@ public class UserDTOView {
 
     private String username;
 
+    private String lastName;
+
+    private String firstName;
+
 
 }

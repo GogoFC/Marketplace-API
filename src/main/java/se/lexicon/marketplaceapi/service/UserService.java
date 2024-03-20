@@ -9,4 +9,6 @@ public interface UserService {
 
     UserDTOView deactivate (UserDTOForm userDTOForm);
 
+    UserDTOView postAd (UserDTOForm userDTOForm);
+
 }

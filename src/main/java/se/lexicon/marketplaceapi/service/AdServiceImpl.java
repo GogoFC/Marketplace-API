@@ -14,9 +14,12 @@ public class AdServiceImpl implements AdService {
 
     private final AdRepository adRepository;
 
+
+
     @Autowired
     public AdServiceImpl(AdRepository adRepository) {
         this.adRepository = adRepository;
+
     }
 
     @Override
@@ -26,6 +29,7 @@ public class AdServiceImpl implements AdService {
         //adRepository.save(adDTOForm.getUserDTOForm());
         //Ad ad = new Ad(adDTOForm.getTitle(), adDTOForm.getDescription());
         Ad ad = new Ad(adDTOForm.getTitle(), adDTOForm.getDescription());
+
         Ad savedAd = adRepository.save(ad);
 
 

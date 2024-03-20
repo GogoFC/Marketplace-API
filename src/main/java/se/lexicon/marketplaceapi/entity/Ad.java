@@ -6,8 +6,7 @@ import lombok.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
+@Data
 @Builder
 public class Ad {
 
@@ -21,7 +20,6 @@ public class Ad {
 
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
     private User user;
 
 

@@ -1,6 +1,7 @@
 package se.lexicon.marketplaceapi.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,8 +9,7 @@ import lombok.Setter;
 import java.util.HashSet;
 import java.util.Set;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @Entity
 public class User {
@@ -34,10 +34,10 @@ public class User {
     private String lastName;
 
     @OneToMany(
-            mappedBy = "user",
             cascade = CascadeType.ALL
     )
-    private Set<Ad> ads = new HashSet<>();
+    @JoinColumn(name = "user_id")
+    private Set<Ad> advertisements = new HashSet<>();
 
 
     public User(String username, String email, String password) {
@@ -54,8 +54,13 @@ public class User {
         this.lastName = lastName;
     }
 
-    private void advertise (Ad ad){
-        ads.add(ad);
+    private void addAdvertisement (Ad ad){
+        advertisements.add(ad);
+        //ad.setUser(this);
+    }
+
+    public void removeAdvertisement (Ad ad){
+        advertisements.remove(ad);
     }
 
     

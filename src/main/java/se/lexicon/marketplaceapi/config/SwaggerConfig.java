@@ -5,6 +5,6 @@ import io.swagger.v3.oas.annotations.info.Info;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@OpenAPIDefinition(info = @Info(title = "Marketplace API", version = "0.1", description = "API Description"))
+@OpenAPIDefinition(info = @Info(title = "Market", version = "0.1", description = "API"))
 public class SwaggerConfig {
 }

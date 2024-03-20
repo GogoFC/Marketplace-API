@@ -1,6 +1,7 @@
 package se.lexicon.marketplaceapi.dto;
 
-import jakarta.jws.soap.SOAPBinding;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import se.lexicon.marketplaceapi.entity.User;
 
@@ -15,9 +16,11 @@ public class AdDTOForm {
 
     private String description;
 
-    private UserDTOForm userDTOForm;
+    @NotNull
+    @Valid
+    private UserDTOForm user;
 
-    private User user;
+    //private User user;
 
 
 
