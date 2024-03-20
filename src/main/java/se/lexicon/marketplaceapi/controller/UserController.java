@@ -13,8 +13,8 @@ import se.lexicon.marketplaceapi.dto.UserDTOForm;
 import se.lexicon.marketplaceapi.dto.UserDTOView;
 import se.lexicon.marketplaceapi.service.UserService;
 
-@RequestMapping("/api/v1/user")
 @RestController
+@RequestMapping("/api/v1/user")
 public class UserController {
 
     UserService userService;
@@ -28,7 +28,6 @@ public class UserController {
 
     @PostMapping("/")
     public ResponseEntity<UserDTOView> register(@RequestBody @Valid UserDTOForm userDTOForm){
-        //System.out.println("registering...");
         UserDTOView registered = userService.register(userDTOForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(registered);
     }

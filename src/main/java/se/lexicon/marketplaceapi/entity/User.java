@@ -37,7 +37,7 @@ public class User {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    @JoinColumn(name = "ad_id")
+    @JoinColumn(name = "user_id")
     private Set<Ad> ads = new HashSet<>();
 
 

@@ -1,24 +1,31 @@
 package se.lexicon.marketplaceapi.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
-import se.lexicon.marketplaceapi.dto.UserDTOForm;
 
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Builder
 public class Ad {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String title;
 
+    private String description;
 
 
+    @ManyToOne
+    private User user;
 
+
+    public Ad(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
 }
