@@ -34,10 +34,9 @@ public class User {
     private String lastName;
 
     @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
+            mappedBy = "user",
+            cascade = CascadeType.ALL
     )
-    @JoinColumn(name = "user_id")
     private Set<Ad> ads = new HashSet<>();
 
 
@@ -55,6 +54,9 @@ public class User {
         this.lastName = lastName;
     }
 
+    private void advertise (Ad ad){
+        ads.add(ad);
+    }
 
     
     

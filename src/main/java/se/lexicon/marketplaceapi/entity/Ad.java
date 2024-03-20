@@ -21,6 +21,7 @@ public class Ad {
 
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
 

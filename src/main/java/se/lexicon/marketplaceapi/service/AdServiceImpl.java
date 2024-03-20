@@ -22,12 +22,13 @@ public class AdServiceImpl implements AdService {
     @Override
     public AdDTOView postAd(AdDTOForm adDTOForm) {
 
+        User user = new User();
         //adRepository.save(adDTOForm.getUserDTOForm());
         //Ad ad = new Ad(adDTOForm.getTitle(), adDTOForm.getDescription());
         Ad ad = new Ad(adDTOForm.getTitle(), adDTOForm.getDescription());
         Ad savedAd = adRepository.save(ad);
 
-        
+
 
         //User user = new User();
 

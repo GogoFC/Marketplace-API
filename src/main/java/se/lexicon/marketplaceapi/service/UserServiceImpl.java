@@ -39,6 +39,13 @@ public class UserServiceImpl implements UserService{
 
     }
 
+    /*
+    public UserDTOView postAdvertisement(UserDTOForm userDTOForm) {
+
+    }
+    
+     */
+
     //TODO
     @Override
     public UserDTOView deactivate(UserDTOForm userDTOForm) {
