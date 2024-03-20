@@ -24,6 +24,7 @@ public class Ad {
 
 
     public Ad(String title, String description) {
+
         this.title = title;
         this.description = description;
     }

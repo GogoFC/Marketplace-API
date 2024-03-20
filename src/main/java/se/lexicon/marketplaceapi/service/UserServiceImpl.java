@@ -5,8 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import se.lexicon.marketplaceapi.dto.AdDTOForm;
+import se.lexicon.marketplaceapi.dto.AdDTOView;
 import se.lexicon.marketplaceapi.dto.UserDTOForm;
 import se.lexicon.marketplaceapi.dto.UserDTOView;
+import se.lexicon.marketplaceapi.entity.Ad;
 import se.lexicon.marketplaceapi.entity.User;
 import se.lexicon.marketplaceapi.repository.UserRepository;
 
@@ -36,10 +38,13 @@ public class UserServiceImpl implements UserService{
 
         // Below gave error. Username was email and email was password in database
         // User user = new User(userDTOForm.getUsername(), passwordEncoder.encode(userDTOForm.getPassword()), userDTOForm.getEmail());
-        adService.postAd(AdDTOForm.builder()
+
+
+        AdDTOView ad = adService.postAd(AdDTOForm.builder()
                         .description(userDTOForm.getAdvert().getDescription())
                         .title(userDTOForm.getAdvert().getDescription())
                 .build());
+
 
         User savedUser = userRepository.save(user);
 
