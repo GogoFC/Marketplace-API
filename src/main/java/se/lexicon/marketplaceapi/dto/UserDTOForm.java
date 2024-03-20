@@ -14,11 +14,6 @@ public class UserDTOForm {
 
     private String password;
 
-    private String username;
-
-    private String lastName;
-
-    private String firstName;
 
 
 }

@@ -11,11 +11,6 @@ public class UserDTOView {
 
     private String email;
 
-    private String username;
-
-    private String lastName;
-
-    private String firstName;
 
 
 }
