@@ -16,9 +16,9 @@ public class AdDTOForm {
 
     private String description;
 
-    @NotNull
-    @Valid
-    private UserDTOForm user;
+    //@NotNull
+    //@Valid
+    //private UserDTOForm user;
 
     //private User user;
 

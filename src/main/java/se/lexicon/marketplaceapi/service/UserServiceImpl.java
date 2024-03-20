@@ -4,6 +4,7 @@ package se.lexicon.marketplaceapi.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import se.lexicon.marketplaceapi.dto.AdDTOForm;
 import se.lexicon.marketplaceapi.dto.UserDTOForm;
 import se.lexicon.marketplaceapi.dto.UserDTOView;
 import se.lexicon.marketplaceapi.entity.User;
@@ -35,6 +36,10 @@ public class UserServiceImpl implements UserService{
 
         // Below gave error. Username was email and email was password in database
         // User user = new User(userDTOForm.getUsername(), passwordEncoder.encode(userDTOForm.getPassword()), userDTOForm.getEmail());
+        adService.postAd(AdDTOForm.builder()
+                        .description(userDTOForm.getAdvert().getDescription())
+                        .title(userDTOForm.getAdvert().getDescription())
+                .build());
 
         User savedUser = userRepository.save(user);
 
@@ -54,6 +59,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserDTOView postAd(UserDTOForm userDTOForm) {
+
         return null;
     }
 
