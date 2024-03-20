@@ -21,17 +21,11 @@ public class User {
     @Column(updatable = false)
     private String email;
 
-    @Column(updatable = false)
-    private String username;
-
 
     //Below value of 50 gave error.
     @Column(nullable = false, length = 100)
     private String password;
 
-    private String firstName;
-
-    private String lastName;
 
     @OneToMany(
             cascade = CascadeType.ALL
@@ -40,19 +34,11 @@ public class User {
     private Set<Ad> advertisements = new HashSet<>();
 
 
-    public User(String username, String email, String password) {
+    public User(String email, String password) {
         this.email = email;
-        this.username = username;
         this.password = password;
     }
 
-    public User(String username, String email, String password, String firstName, String lastName) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
 
     private void addAdvertisement (Ad ad){
         advertisements.add(ad);

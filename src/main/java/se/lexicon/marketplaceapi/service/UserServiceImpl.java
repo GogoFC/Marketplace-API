@@ -29,21 +29,18 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserDTOView register(UserDTOForm userDTOForm) {
-        User user = new User(userDTOForm.getUsername(), userDTOForm.getEmail(), passwordEncoder.encode(userDTOForm.getPassword()));
-        User user1 = new User(userDTOForm.getEmail(),userDTOForm.getUsername(),passwordEncoder.encode(userDTOForm.getPassword()),userDTOForm.getFirstName(),userDTOForm.getLastName());
+        User user = new User(userDTOForm.getEmail(), passwordEncoder.encode(userDTOForm.getPassword()));
+        //User user1 = new User(userDTOForm.getEmail(),userDTOForm.getUsername(),passwordEncoder.encode(userDTOForm.getPassword()),userDTOForm.getFirstName(),userDTOForm.getLastName());
 
 
         // Below gave error. Username was email and email was password in database
         // User user = new User(userDTOForm.getUsername(), passwordEncoder.encode(userDTOForm.getPassword()), userDTOForm.getEmail());
 
-        User savedUser = userRepository.save(user1);
+        User savedUser = userRepository.save(user);
 
 
         return UserDTOView.builder()
-                .username(savedUser.getUsername())
                 .email(savedUser.getEmail())
-                .firstName(savedUser.getFirstName())
-                .lastName(savedUser.getLastName())
                 .build();
 
     }
