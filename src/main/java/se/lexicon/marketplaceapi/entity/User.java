@@ -40,14 +40,14 @@ public class User {
     }
 
 
-    private void postAdvertisement (Ad ad){
+    private void addAdvertisement (Ad ad){
         advertisements.add(ad);
         //ad.setUser(this);
     }
 
     public void removeAdvertisement (Ad ad){
         advertisements.remove(ad);
-        ad.setUser(this);
+        //ad.setUser(this);
     }
 
     
