@@ -40,7 +40,7 @@ public class User {
     }
 
 
-    private void addAdvertisement (Ad ad){
+    public void addAdvertisement (Ad ad){
         advertisements.add(ad);
         //ad.setUser(this);
     }

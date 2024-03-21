@@ -1,20 +1,16 @@
 package se.lexicon.marketplaceapi.service;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import se.lexicon.marketplaceapi.dto.AdDTOForm;
-import se.lexicon.marketplaceapi.dto.AdDTOView;
-import se.lexicon.marketplaceapi.dto.UserDTOForm;
-import se.lexicon.marketplaceapi.dto.UserDTOView;
 import se.lexicon.marketplaceapi.entity.Ad;
 import se.lexicon.marketplaceapi.entity.User;
-import se.lexicon.marketplaceapi.repository.AdRepository;
+import se.lexicon.marketplaceapi.exception.UserNotFoundException;
 import se.lexicon.marketplaceapi.repository.UserRepository;
-
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -23,14 +19,12 @@ public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
 
-    private final AdRepository adRepository;
-
     private final AdService adService;
 
 
     @Autowired
-    public UserServiceImpl( UserRepository userRepository, PasswordEncoder passwordEncoder, AdService adService, AdRepository adRepository) {
-        this.adRepository = adRepository;
+    public UserServiceImpl( UserRepository userRepository, PasswordEncoder passwordEncoder, AdService adService) {
+
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.adService = adService;
@@ -38,8 +32,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserDTOView register(UserDTOForm userDTOForm) {
-        User user = new User(userDTOForm.getEmail(), passwordEncoder.encode(userDTOForm.getPassword()));
+    public User addUser(User user) {
+        //User user = new User(userDTOForm.getEmail(), passwordEncoder.encode(userDTOForm.getPassword()));
         //User user1 = new User(userDTOForm.getEmail(),userDTOForm.getUsername(),passwordEncoder.encode(userDTOForm.getPassword()),userDTOForm.getFirstName(),userDTOForm.getLastName());
 
 
@@ -54,54 +48,42 @@ public class UserServiceImpl implements UserService{
 
          */
 
-
-        User savedUser = userRepository.save(user);
-
-        adService.postAd(userDTOForm.getAdvert());
-
-        /*
-        Set<AdDTOView> adDTOViews = savedUser.getAdvertisements()
-                .stream()
-                .map(
-                        ad -> AdDTOView.builder()
-                                .title(ad.getTitle())
-                                .description(ad.getDescription())
-                                .build()
-
-                ).collect(Collectors.toSet());
-
-         */
-
-
-
-
-
-
-
-
-
-        return UserDTOView.builder()
-                .email(savedUser.getEmail())
-                .build();
-
+        return userRepository.save(user);
     }
-
-    /*
-    public UserDTOView postAdvertisement(UserDTOForm userDTOForm) {
-
-    }
-
-     */
 
     @Override
-    public UserDTOView postAd(UserDTOForm userDTOForm) {
-
-        return null;
+    public User deleteUser(Long id) {
+        User user = getSpecificUser(id);
+        userRepository.delete(user);
+        return user;
     }
 
-    //TODO
+
+
     @Override
-    public UserDTOView deactivate(UserDTOForm userDTOForm) {
+    public User postAd(Long userId, Long adId) {
+        User user = getSpecificUser(userId);
+        Ad ad = adService.getSpecificAd(adId);
+        user.addAdvertisement(ad);
+        return user;
+    }
+
+    @Override
+    public User getSpecificUser(Long id) {
+        return userRepository.findById(id).orElseThrow(()->
+                new UserNotFoundException(id));
+    }
+
+    @Override
+    public Set<User> getAllUsers() {
+        //return new HashSet<>(userRepository.findAll());
+        return StreamSupport
+                .stream(userRepository.findAll().spliterator(),false)
+                .collect(Collectors.toSet());
+    }
+
+    @Override
+    public User changeUserPassword(Long id, User user) {
         return null;
     }
 }

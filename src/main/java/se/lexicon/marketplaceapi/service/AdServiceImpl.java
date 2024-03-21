@@ -7,7 +7,12 @@ import se.lexicon.marketplaceapi.dto.AdDTOView;
 import se.lexicon.marketplaceapi.dto.UserDTOForm;
 import se.lexicon.marketplaceapi.entity.Ad;
 import se.lexicon.marketplaceapi.entity.User;
+import se.lexicon.marketplaceapi.exception.AdNotFoundException;
 import se.lexicon.marketplaceapi.repository.AdRepository;
+
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class AdServiceImpl implements AdService {
@@ -23,38 +28,41 @@ public class AdServiceImpl implements AdService {
     }
 
     @Override
-    public AdDTOView postAd(AdDTOForm adDTOForm) {
-
-        //User user = new User();
-        //user.getId();
-        //adRepository.save(adDTOForm.getUserDTOForm());
-        //Ad ad = new Ad(adDTOForm.getTitle(), adDTOForm.getDescription());
-        //Ad ad = new Ad(adDTOForm.getTitle(), adDTOForm.getDescription());
-        Ad ad = new Ad(adDTOForm.getTitle(), adDTOForm.getDescription());
-
-        /*
-        User user = new User();
-        ad.setUser(user);
-
-         */
-
-        Ad savedAd = adRepository.save(ad);
-
-
-
-
-        //User user = new User();
-
-        return AdDTOView.builder()
-                .title(savedAd.getTitle())
-                .description(savedAd.getDescription())
-                .build();
-
-
+    public Ad postAd(Ad ad) {
+        return adRepository.save(ad);
     }
 
     @Override
-    public AdDTOView removeAd(AdDTOForm adDTOForm) {
-        return null;
+    public Ad removeAd(Long id) {
+        Ad ad = getSpecificAd(id);
+        adRepository.delete(ad);
+        return ad;
+    }
+
+    @Override
+    public Ad editAdTitle(Long id, Ad ad) {
+        Ad adToEdit = getSpecificAd(id);
+        adToEdit.setTitle(ad.getTitle());
+        return adToEdit;
+    }
+
+    @Override
+    public Ad editAdDescription(Long id, Ad ad) {
+        Ad adToEdit = getSpecificAd(id);
+        adToEdit.setDescription(ad.getDescription());
+        return adToEdit;
+    }
+
+    @Override
+    public Set<Ad> getAllAds() {
+        return StreamSupport
+                .stream(adRepository.findAll().spliterator(),false)
+                .collect(Collectors.toSet());
+    }
+
+    @Override
+    public Ad getSpecificAd(Long id) {
+        return adRepository.findById(id).orElseThrow(()->
+                new AdNotFoundException(id));
     }
 }
