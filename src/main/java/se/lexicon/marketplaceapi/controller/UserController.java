@@ -57,14 +57,14 @@ public class UserController {
         return new ResponseEntity<>(UserDTO.from(user), HttpStatus.CREATED);
     }
 
-    @PostMapping(value = "{userId}/ads/{adId}/post")
-    public ResponseEntity<UserDTO> postAd(@PathVariable final Long userId,
+    @PostMapping(value = "{userId}/ads/{adId}/publish")
+    public ResponseEntity<UserDTO> publishAd(@PathVariable final Long userId,
                                           @PathVariable final Long adId){
         User user = userService.postAd(userId, adId);
         return new ResponseEntity<>(UserDTO.from(user), HttpStatus.CREATED);
     }
 
-    @DeleteMapping(value = "{userId}/ads/{adId}/unpost")
+    @DeleteMapping(value = "{userId}/ads/{adId}/unpublish")
     public ResponseEntity<UserDTO> removeAd(@PathVariable final Long userId,
                                           @PathVariable final Long adId){
         User user = userService.removeAd(userId, adId);
