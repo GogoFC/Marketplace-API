@@ -28,8 +28,14 @@ public class MyCMDLineRunner implements CommandLineRunner {
         Ad ad = new Ad("Title CMD","DEsc CMD");
         Ad ad1 = new Ad("Ad 2", "Desc 3");
 
+        /*
         ad1.setUser(user);
         ad.setUser(user);
+
+         */
+
+        user.postAdvertisement(ad1);
+        user.postAdvertisement(ad);
 
 
         userRepository.save(user);
