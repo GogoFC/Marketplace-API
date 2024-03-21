@@ -25,7 +25,7 @@ public class AdController {
 
     @PostMapping
     public ResponseEntity<AdDTO> postAd(@RequestBody final AdDTO adDTO) {
-        Ad ad = adService.postAd(Ad.from(adDTO));
+        Ad ad = adService.saveAd(Ad.from(adDTO));
         return new ResponseEntity<>(AdDTO.from(ad), HttpStatus.CREATED);
     }
 
@@ -46,25 +46,16 @@ public class AdController {
 
     @DeleteMapping(value = "{id}")
     public ResponseEntity<AdDTO> deleteAd(@PathVariable final Long id){
-        Ad ad = adService.removeAd(id);
+        Ad ad = adService.deleteAd(id);
         return new ResponseEntity<>(AdDTO.from(ad), HttpStatus.CREATED);
     }
-
-    /*
-    @PutMapping(value = "{id}")
-    public ResponseEntity<AdDTO> editAdTitle(@PathVariable final Long id,
-                                             @RequestBody final AdDTO adDTO){
-        Ad editedAd = adService.editAdTitle(id, Ad.from(adDTO));
-        return new ResponseEntity<>(AdDTO.from(editedAd), HttpStatus.CREATED);
-    }
-
-     */
+    
 
 
     @PutMapping(value = "{id}")
-    public ResponseEntity<AdDTO> editAdDescription(@PathVariable final Long id,
+    public ResponseEntity<AdDTO> editAd(@PathVariable final Long id,
                                              @RequestBody final AdDTO adDTO){
-        Ad editedAd = adService.editAdDescription(id, Ad.from(adDTO));
+        Ad editedAd = adService.editAd(id, Ad.from(adDTO));
         return new ResponseEntity<>(AdDTO.from(editedAd), HttpStatus.CREATED);
     }
 }

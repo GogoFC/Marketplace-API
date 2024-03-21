@@ -25,30 +25,24 @@ public class AdServiceImpl implements AdService {
     }
 
     @Override
-    public Ad postAd(Ad ad) {
+    public Ad saveAd(Ad ad) {
         return adRepository.save(ad);
     }
 
     @Override
-    public Ad removeAd(Long id) {
+    public Ad deleteAd(Long id) {
         Ad ad = getSpecificAd(id);
         adRepository.delete(ad);
         return ad;
     }
 
-    @Override
-    @Transactional
-    public Ad editAdTitle(Long id, Ad ad) {
-        Ad adToEdit = getSpecificAd(id);
-        adToEdit.setTitle(ad.getTitle());
-        return adToEdit;
-    }
 
     @Override
     @Transactional
-    public Ad editAdDescription(Long id, Ad ad) {
+    public Ad editAd(Long id, Ad ad) {
         Ad adToEdit = getSpecificAd(id);
         adToEdit.setDescription(ad.getDescription());
+        adToEdit.setTitle(ad.getTitle());
         return adToEdit;
     }
 

@@ -6,19 +6,17 @@ import java.util.Set;
 
 public interface AdService {
 
-    Ad postAd (Ad ad);
+    Ad saveAd(Ad ad);
 
     //AdDTOView postAd (AdDTOForm adDTOForm, UserDTOForm userDTOForm);
 
-    Ad removeAd (Long id);
+    Ad deleteAd(Long id);
 
     Set<Ad> getAllAds();
 
     Ad getSpecificAd (Long id);
 
-    Ad editAdTitle (Long id, Ad ad);
-
-    Ad editAdDescription (Long id, Ad ad);
+    Ad editAd(Long id, Ad ad);
 
 
 }
