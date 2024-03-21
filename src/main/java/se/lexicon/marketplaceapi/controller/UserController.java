@@ -64,7 +64,7 @@ public class UserController {
         return new ResponseEntity<>(UserDTO.from(user), HttpStatus.CREATED);
     }
 
-    @DeleteMapping(value = "{userId}/ads/{adId}/remove")
+    @DeleteMapping(value = "{userId}/ads/{adId}/unpost")
     public ResponseEntity<UserDTO> removeAd(@PathVariable final Long userId,
                                           @PathVariable final Long adId){
         User user = userService.removeAd(userId, adId);
