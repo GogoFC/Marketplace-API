@@ -34,14 +34,7 @@ public class MyCMDLineRunner implements CommandLineRunner {
 
          */
 
-        user.postAdvertisement(ad1);
-        user.postAdvertisement(ad);
 
-
-        userRepository.save(user);
-        adRepository.save(ad);
-
-         */
 
 
     }
