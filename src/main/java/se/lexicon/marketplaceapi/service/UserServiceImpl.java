@@ -69,6 +69,14 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public User removeAd(Long userId, Long adId) {
+        User user = getSpecificUser(userId);
+        Ad ad = adService.getSpecificAd(adId);
+        user.removeAdvertisement(ad);
+        return user;
+    }
+
+    @Override
     public User getSpecificUser(Long id) {
         return userRepository.findById(id).orElseThrow(()->
                 new UserNotFoundException(id));

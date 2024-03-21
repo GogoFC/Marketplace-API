@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import se.lexicon.marketplaceapi.dto.UserDTO;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -48,6 +49,13 @@ public class User {
     public void removeAdvertisement (Ad ad){
         advertisements.remove(ad);
         //ad.setUser(this);
+    }
+
+    public static User from(UserDTO userDTO){
+        User user = new User();
+        user.setEmail(userDTO.getEmail());
+        user.setPassword(userDTO.getPassword());
+        return user;
     }
 
     

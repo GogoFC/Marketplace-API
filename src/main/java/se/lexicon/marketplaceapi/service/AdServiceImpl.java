@@ -2,11 +2,7 @@ package se.lexicon.marketplaceapi.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import se.lexicon.marketplaceapi.dto.AdDTOForm;
-import se.lexicon.marketplaceapi.dto.AdDTOView;
-import se.lexicon.marketplaceapi.dto.UserDTOForm;
 import se.lexicon.marketplaceapi.entity.Ad;
-import se.lexicon.marketplaceapi.entity.User;
 import se.lexicon.marketplaceapi.exception.AdNotFoundException;
 import se.lexicon.marketplaceapi.repository.AdRepository;
 

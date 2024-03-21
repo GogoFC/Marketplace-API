@@ -1,8 +1,5 @@
 package se.lexicon.marketplaceapi.service;
 
-import se.lexicon.marketplaceapi.dto.AdDTOForm;
-import se.lexicon.marketplaceapi.dto.AdDTOView;
-import se.lexicon.marketplaceapi.dto.UserDTOForm;
 import se.lexicon.marketplaceapi.entity.Ad;
 
 import java.util.Set;
