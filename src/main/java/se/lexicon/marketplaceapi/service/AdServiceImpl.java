@@ -53,6 +53,14 @@ public class AdServiceImpl implements AdService {
                 .collect(Collectors.toSet());
     }
 
+    /*
+    // Suggested by Intellij.
+    @Override
+    public Set<Ad> getAllAds() {
+        return new HashSet<>(adRepository.findAll());
+    }
+     */
+
     @Override
     public Ad getSpecificAd(Long id) {
         return adRepository.findById(id).orElseThrow(()->

@@ -49,7 +49,7 @@ public class AdController {
         Ad ad = adService.deleteAd(id);
         return new ResponseEntity<>(AdDTO.from(ad), HttpStatus.CREATED);
     }
-    
+
 
 
     @PutMapping(value = "{id}")
