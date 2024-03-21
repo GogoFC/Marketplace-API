@@ -9,6 +9,7 @@ import se.lexicon.marketplaceapi.dto.AdDTO;
 @AllArgsConstructor
 @Data
 @Builder
+@EqualsAndHashCode(exclude = "user")
 public class Ad {
 
     @Id

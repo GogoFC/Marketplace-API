@@ -1,10 +1,7 @@
 package se.lexicon.marketplaceapi.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import se.lexicon.marketplaceapi.dto.UserDTO;
 
 import java.util.HashSet;
@@ -13,6 +10,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @Entity
+@EqualsAndHashCode(exclude = "password")
 public class User {
 
     @Id
