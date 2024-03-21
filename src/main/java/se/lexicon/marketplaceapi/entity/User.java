@@ -12,6 +12,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @Entity
+@EqualsAndHashCode(exclude = "password")
 public class User {
 
     @Id
@@ -40,14 +41,21 @@ public class User {
     }
 
 
-    public void postAdvertisement (Ad ad){
+    public void addAdvertisement (Ad ad){
         advertisements.add(ad);
         //ad.setUser(this);
     }
 
     public void removeAdvertisement (Ad ad){
         advertisements.remove(ad);
-        ad.setUser(this);
+        //ad.setUser(this);
+    }
+
+    public static User from(UserDTO userDTO){
+        User user = new User();
+        user.setEmail(userDTO.getEmail());
+        user.setPassword(userDTO.getPassword());
+        return user;
     }
 
     

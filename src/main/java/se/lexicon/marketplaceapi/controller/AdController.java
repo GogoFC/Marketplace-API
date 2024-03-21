@@ -1,35 +1,70 @@
 package se.lexicon.marketplaceapi.controller;
 
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import se.lexicon.marketplaceapi.dto.AdDTOForm;
-import se.lexicon.marketplaceapi.dto.AdDTOView;
+import org.springframework.web.bind.annotation.*;
+import se.lexicon.marketplaceapi.dto.AdDTO;
+import se.lexicon.marketplaceapi.entity.Ad;
 import se.lexicon.marketplaceapi.service.AdService;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @RestController
-@RequestMapping("/api/v1/ad")
+@RequestMapping("/ads")
 public class AdController {
 
-    AdService adService;
+    private final AdService adService;
 
     @Autowired
     public AdController(AdService adService) {
         this.adService = adService;
     }
 
+    @PostMapping
+    public ResponseEntity<AdDTO> postAd(@RequestBody final AdDTO adDTO) {
+        Ad ad = adService.postAd(Ad.from(adDTO));
+        return new ResponseEntity<>(AdDTO.from(ad), HttpStatus.CREATED);
+    }
+
+    // Double colon :: is called Branch Operator.
+    @GetMapping
+    public ResponseEntity<Set<AdDTO>> getAds(){
+        Set<Ad> ads = new HashSet<>();
+        ads = adService.getAllAds();
+        Set<AdDTO> adsDTO = ads.stream().map(AdDTO::from).collect(Collectors.toSet());
+        return new ResponseEntity<>(adsDTO, HttpStatus.CREATED);
+    }
+
+    @GetMapping(value = "{id}")
+    public ResponseEntity<AdDTO> getSpecificAd(@PathVariable final Long id){
+        Ad ad = adService.getSpecificAd(id);
+        return new ResponseEntity<>(AdDTO.from(ad), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping(value = "{id}")
+    public ResponseEntity<AdDTO> deleteAd(@PathVariable final Long id){
+        Ad ad = adService.removeAd(id);
+        return new ResponseEntity<>(AdDTO.from(ad), HttpStatus.CREATED);
+    }
+
+    /*
+    @PutMapping(value = "{id}")
+    public ResponseEntity<AdDTO> editAdTitle(@PathVariable final Long id,
+                                             @RequestBody final AdDTO adDTO){
+        Ad editedAd = adService.editAdTitle(id, Ad.from(adDTO));
+        return new ResponseEntity<>(AdDTO.from(editedAd), HttpStatus.CREATED);
+    }
+
+     */
 
 
-    @PostMapping("/")
-    public ResponseEntity<AdDTOView> postAd(@RequestBody @Valid AdDTOForm adDTOForm){
-        AdDTOView postedAd = adService.postAd(adDTOForm);
-        return ResponseEntity.status(HttpStatus.CREATED).body(postedAd);
-
+    @PutMapping(value = "{id}")
+    public ResponseEntity<AdDTO> editAdDescription(@PathVariable final Long id,
+                                             @RequestBody final AdDTO adDTO){
+        Ad editedAd = adService.editAdDescription(id, Ad.from(adDTO));
+        return new ResponseEntity<>(AdDTO.from(editedAd), HttpStatus.CREATED);
     }
 }

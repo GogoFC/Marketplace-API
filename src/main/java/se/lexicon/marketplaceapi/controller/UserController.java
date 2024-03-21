@@ -1,47 +1,74 @@
 package se.lexicon.marketplaceapi.controller;
 
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import se.lexicon.marketplaceapi.dto.UserDTOForm;
-import se.lexicon.marketplaceapi.dto.UserDTOView;
+import org.springframework.web.bind.annotation.*;
+import se.lexicon.marketplaceapi.dto.AdDTO;
+import se.lexicon.marketplaceapi.dto.UserDTO;
+import se.lexicon.marketplaceapi.entity.User;
 import se.lexicon.marketplaceapi.service.UserService;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("/users")
 public class UserController {
 
-    UserService userService;
+    private final UserService userService;
 
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
-
-
-
-    @PostMapping("/")
-    public ResponseEntity<UserDTOView> register(@RequestBody @Valid UserDTOForm userDTOForm){
-        UserDTOView registered = userService.register(userDTOForm);
-        return ResponseEntity.status(HttpStatus.CREATED).body(registered);
+    @PostMapping
+    public ResponseEntity<UserDTO> addUser(@RequestBody final UserDTO userDTO){
+        User user = userService.addUser(User.from(userDTO));
+        return new ResponseEntity<>(UserDTO.from(user), HttpStatus.CREATED);
     }
 
-
-
-
-    /*
-    @PostMapping("/")
-    public UserDTOView register(@RequestBody @Valid UserDTOForm userDTOForm) {
-        return userService.register(userDTOForm);
+    @GetMapping
+    public ResponseEntity<Set<UserDTO>> getUsers(){
+        Set<User> users = new HashSet<>();
+        users = userService.getAllUsers();
+        Set<UserDTO> usersDTO = users.stream().map(UserDTO::from).collect(Collectors.toSet());
+        return new ResponseEntity<>(usersDTO, HttpStatus.CREATED);
     }
-    //This also works. Delegate Method
 
-     */
+    @GetMapping(value = "{id}")
+    public ResponseEntity<UserDTO> getUser(@PathVariable final Long id){
+        User user = userService.getSpecificUser(id);
+        return new ResponseEntity<>(UserDTO.from(user), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping(value = "{id}")
+    public ResponseEntity<UserDTO> deleteUser(@PathVariable final Long id){
+        User user = userService.deleteUser(id);
+        return new ResponseEntity<>(UserDTO.from(user), HttpStatus.CREATED);
+    }
+
+    @PutMapping(value = "{id}")
+    public ResponseEntity<UserDTO> changeUserPassword(@PathVariable final Long id,
+                                                      @RequestBody final UserDTO userDTO){
+        User user = userService.changeUserPassword(id, User.from(userDTO));
+        return new ResponseEntity<>(UserDTO.from(user), HttpStatus.CREATED);
+    }
+
+    @PostMapping(value = "{userId}/ads/{adId}/post")
+    public ResponseEntity<UserDTO> postAd(@PathVariable final Long userId,
+                                          @PathVariable final Long adId){
+        User user = userService.postAd(userId, adId);
+        return new ResponseEntity<>(UserDTO.from(user), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping(value = "{userId}/ads/{adId}/remove")
+    public ResponseEntity<UserDTO> removeAd(@PathVariable final Long userId,
+                                          @PathVariable final Long adId){
+        User user = userService.removeAd(userId, adId);
+        return new ResponseEntity<>(UserDTO.from(user), HttpStatus.CREATED);
+    }
 
 }
