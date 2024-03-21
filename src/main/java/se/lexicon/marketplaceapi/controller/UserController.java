@@ -9,6 +9,7 @@ import se.lexicon.marketplaceapi.dto.UserDTO;
 import se.lexicon.marketplaceapi.entity.User;
 import se.lexicon.marketplaceapi.service.UserService;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -31,8 +32,43 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<Set<UserDTO>> getUsers(){
-        Set<User> users = userService.getAllUsers();
+        Set<User> users = new HashSet<>();
+        users = userService.getAllUsers();
         Set<UserDTO> usersDTO = users.stream().map(UserDTO::from).collect(Collectors.toSet());
         return new ResponseEntity<>(usersDTO, HttpStatus.CREATED);
     }
+
+    @GetMapping(value = "{id}")
+    public ResponseEntity<UserDTO> getUser(@PathVariable final Long id){
+        User user = userService.getSpecificUser(id);
+        return new ResponseEntity<>(UserDTO.from(user), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping(value = "{id}")
+    public ResponseEntity<UserDTO> deleteUser(@PathVariable final Long id){
+        User user = userService.deleteUser(id);
+        return new ResponseEntity<>(UserDTO.from(user), HttpStatus.CREATED);
+    }
+
+    @PutMapping(value = "{id}")
+    public ResponseEntity<UserDTO> changeUserPassword(@PathVariable final Long id,
+                                                      @RequestBody final UserDTO userDTO){
+        User user = userService.changeUserPassword(id, User.from(userDTO));
+        return new ResponseEntity<>(UserDTO.from(user), HttpStatus.CREATED);
+    }
+
+    @PostMapping(value = "{userId}/ads/{adId}/post")
+    public ResponseEntity<UserDTO> postAd(@PathVariable final Long userId,
+                                          @PathVariable final Long adId){
+        User user = userService.postAd(userId, adId);
+        return new ResponseEntity<>(UserDTO.from(user), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping(value = "{userId}/ads/{adId}/remove")
+    public ResponseEntity<UserDTO> removeAd(@PathVariable final Long userId,
+                                          @PathVariable final Long adId){
+        User user = userService.removeAd(userId, adId);
+        return new ResponseEntity<>(UserDTO.from(user), HttpStatus.CREATED);
+    }
+
 }

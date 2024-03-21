@@ -8,6 +8,7 @@ import se.lexicon.marketplaceapi.dto.AdDTO;
 import se.lexicon.marketplaceapi.entity.Ad;
 import se.lexicon.marketplaceapi.service.AdService;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -31,7 +32,8 @@ public class AdController {
     // Double colon :: is called Branch Operator.
     @GetMapping
     public ResponseEntity<Set<AdDTO>> getAds(){
-        Set<Ad> ads = adService.getAllAds();
+        Set<Ad> ads = new HashSet<>();
+        ads = adService.getAllAds();
         Set<AdDTO> adsDTO = ads.stream().map(AdDTO::from).collect(Collectors.toSet());
         return new ResponseEntity<>(adsDTO, HttpStatus.CREATED);
     }
@@ -48,12 +50,16 @@ public class AdController {
         return new ResponseEntity<>(AdDTO.from(ad), HttpStatus.CREATED);
     }
 
+    /*
     @PutMapping(value = "{id}")
     public ResponseEntity<AdDTO> editAdTitle(@PathVariable final Long id,
                                              @RequestBody final AdDTO adDTO){
         Ad editedAd = adService.editAdTitle(id, Ad.from(adDTO));
         return new ResponseEntity<>(AdDTO.from(editedAd), HttpStatus.CREATED);
     }
+
+     */
+
 
     @PutMapping(value = "{id}")
     public ResponseEntity<AdDTO> editAdDescription(@PathVariable final Long id,

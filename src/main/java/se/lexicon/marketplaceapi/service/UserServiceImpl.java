@@ -1,13 +1,16 @@
 package se.lexicon.marketplaceapi.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import se.lexicon.marketplaceapi.entity.Ad;
 import se.lexicon.marketplaceapi.entity.User;
+import se.lexicon.marketplaceapi.exception.AdExistsException;
 import se.lexicon.marketplaceapi.exception.UserNotFoundException;
 import se.lexicon.marketplaceapi.repository.UserRepository;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -59,16 +62,23 @@ public class UserServiceImpl implements UserService{
     }
 
 
-
+    // Not using repository so Transactional is needed.
     @Override
+    @Transactional
     public User postAd(Long userId, Long adId) {
         User user = getSpecificUser(userId);
         Ad ad = adService.getSpecificAd(adId);
+        if (Objects.nonNull(ad.getUser())){
+            throw new AdExistsException(adId,
+                    ad.getUser().getId());
+        }
         user.addAdvertisement(ad);
+        ad.setUser(user);
         return user;
     }
 
     @Override
+    @Transactional
     public User removeAd(Long userId, Long adId) {
         User user = getSpecificUser(userId);
         Ad ad = adService.getSpecificAd(adId);
@@ -91,6 +101,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    @Transactional
     public User changeUserPassword(Long id, User user) {
         return null;
     }

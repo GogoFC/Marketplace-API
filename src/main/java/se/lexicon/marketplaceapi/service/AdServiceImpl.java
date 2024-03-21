@@ -1,5 +1,6 @@
 package se.lexicon.marketplaceapi.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.lexicon.marketplaceapi.entity.Ad;
@@ -36,6 +37,7 @@ public class AdServiceImpl implements AdService {
     }
 
     @Override
+    @Transactional
     public Ad editAdTitle(Long id, Ad ad) {
         Ad adToEdit = getSpecificAd(id);
         adToEdit.setTitle(ad.getTitle());
@@ -43,6 +45,7 @@ public class AdServiceImpl implements AdService {
     }
 
     @Override
+    @Transactional
     public Ad editAdDescription(Long id, Ad ad) {
         Ad adToEdit = getSpecificAd(id);
         adToEdit.setDescription(ad.getDescription());

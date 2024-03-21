@@ -23,7 +23,7 @@ public class MyCMDLineRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
+        /*
         User user = new User("go@aol.com", "password");
         Ad ad = new Ad("Title CMD","DEsc CMD");
         Ad ad1 = new Ad("Ad 2", "Desc 3");
@@ -34,6 +34,8 @@ public class MyCMDLineRunner implements CommandLineRunner {
 
         userRepository.save(user);
         adRepository.save(ad);
+
+         */
 
 
     }

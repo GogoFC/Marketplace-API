@@ -3,6 +3,8 @@ package se.lexicon.marketplaceapi.dto;
 import lombok.Data;
 import se.lexicon.marketplaceapi.entity.Ad;
 
+import java.util.Objects;
+
 @Data
 public class AdDTO {
 
