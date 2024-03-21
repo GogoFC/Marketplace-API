@@ -47,6 +47,7 @@ public class User {
 
     public void removeAdvertisement (Ad ad){
         advertisements.remove(ad);
+        ad.setUser(this);
     }
 
     

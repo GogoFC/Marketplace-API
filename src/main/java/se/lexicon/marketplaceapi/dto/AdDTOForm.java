@@ -12,6 +12,8 @@ import se.lexicon.marketplaceapi.entity.User;
 @Builder
 public class AdDTOForm {
 
+    private Long id;
+
     private String title;
 
     private String description;

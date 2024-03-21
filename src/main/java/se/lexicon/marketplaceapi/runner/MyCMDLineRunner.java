@@ -26,8 +26,11 @@ public class MyCMDLineRunner implements CommandLineRunner {
 
         User user = new User("go@aol.com", "password");
         Ad ad = new Ad("Title CMD","DEsc CMD");
+        Ad ad1 = new Ad("Ad 2", "Desc 3");
 
+        ad1.setUser(user);
         ad.setUser(user);
+
 
         userRepository.save(user);
         adRepository.save(ad);

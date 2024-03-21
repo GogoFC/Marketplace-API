@@ -4,6 +4,8 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.Set;
+
 @Setter
 @Getter
 @AllArgsConstructor
@@ -19,6 +21,10 @@ public class UserDTOForm {
     @NotNull
     @Valid
     private AdDTOForm advert;
+
+    private Set<AdDTOForm> advertsCollection;
+
+
 
 
 

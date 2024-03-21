@@ -10,7 +10,11 @@ import se.lexicon.marketplaceapi.dto.UserDTOForm;
 import se.lexicon.marketplaceapi.dto.UserDTOView;
 import se.lexicon.marketplaceapi.entity.Ad;
 import se.lexicon.marketplaceapi.entity.User;
+import se.lexicon.marketplaceapi.repository.AdRepository;
 import se.lexicon.marketplaceapi.repository.UserRepository;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -19,11 +23,14 @@ public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
 
+    private final AdRepository adRepository;
+
     private final AdService adService;
 
 
     @Autowired
-    public UserServiceImpl( UserRepository userRepository, PasswordEncoder passwordEncoder, AdService adService) {
+    public UserServiceImpl( UserRepository userRepository, PasswordEncoder passwordEncoder, AdService adService, AdRepository adRepository) {
+        this.adRepository = adRepository;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.adService = adService;
@@ -39,14 +46,38 @@ public class UserServiceImpl implements UserService{
         // Below gave error. Username was email and email was password in database
         // User user = new User(userDTOForm.getUsername(), passwordEncoder.encode(userDTOForm.getPassword()), userDTOForm.getEmail());
 
-
+        /*
         AdDTOView ad = adService.postAd(AdDTOForm.builder()
                         .description(userDTOForm.getAdvert().getDescription())
                         .title(userDTOForm.getAdvert().getDescription())
                 .build());
 
+         */
+
 
         User savedUser = userRepository.save(user);
+
+        adService.postAd(userDTOForm.getAdvert());
+
+        /*
+        Set<AdDTOView> adDTOViews = savedUser.getAdvertisements()
+                .stream()
+                .map(
+                        ad -> AdDTOView.builder()
+                                .title(ad.getTitle())
+                                .description(ad.getDescription())
+                                .build()
+
+                ).collect(Collectors.toSet());
+
+         */
+
+
+
+
+
+
+
 
 
         return UserDTOView.builder()
