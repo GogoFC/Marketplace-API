@@ -10,14 +10,15 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @Entity
-@EqualsAndHashCode(exclude = "password")
+@EqualsAndHashCode(exclude = {"password", "advertisements", "id"})
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(updatable = false)
+
+    @Column(updatable = false, unique = true)
     private String email;
 
 

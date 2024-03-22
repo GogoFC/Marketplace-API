@@ -103,6 +103,8 @@ public class UserServiceImpl implements UserService{
     @Override
     @Transactional
     public User changeUserPassword(Long id, User user) {
-        return null;
+        User editPasswordForUser = getSpecificUser(id);
+        editPasswordForUser.setPassword(user.getPassword());
+        return editPasswordForUser;
     }
 }
