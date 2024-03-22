@@ -16,7 +16,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(updatable = false, unique = true)
+    @Column(unique = true, updatable = false)
     private String email;
     //Below value of 50 gave error.
     @Column(nullable = false, length = 100)

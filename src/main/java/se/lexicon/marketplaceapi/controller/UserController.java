@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import se.lexicon.marketplaceapi.dto.AdDTO;
 import se.lexicon.marketplaceapi.dto.UserDTO;
 import se.lexicon.marketplaceapi.entity.User;
 import se.lexicon.marketplaceapi.service.UserService;
@@ -65,8 +64,8 @@ public class UserController {
     }
 
     @DeleteMapping(value = "{userId}/ads/{adId}/unpublish")
-    public ResponseEntity<UserDTO> removeAd(@PathVariable final Long userId,
-                                          @PathVariable final Long adId){
+    public ResponseEntity<UserDTO> unpublishAd(@PathVariable final Long userId,
+                                               @PathVariable final Long adId){
         User user = userService.removeAd(userId, adId);
         return new ResponseEntity<>(UserDTO.from(user), HttpStatus.CREATED);
     }
