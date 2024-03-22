@@ -19,8 +19,7 @@ public class UserDTO {
     public static UserDTO from(User user){
         UserDTO userDTO = new UserDTO();
         userDTO.setId(user.getId());
-        userDTO.setEmail(userDTO.getEmail());
-        userDTO.setPassword(userDTO.getPassword());
+        userDTO.setEmail(user.getEmail());
         userDTO.setAdsDTO(user.getAdvertisements().stream().map(AdDTO::from).collect(Collectors.toSet()));
         return userDTO;
 
