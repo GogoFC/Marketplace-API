@@ -20,6 +20,7 @@ public class UserDTO {
         UserDTO userDTO = new UserDTO();
         userDTO.setId(user.getId());
         userDTO.setEmail(user.getEmail());
+        userDTO.setPassword("********");
         userDTO.setAdsDTO(user.getAdvertisements().stream().map(AdDTO::from).collect(Collectors.toSet()));
         return userDTO;
 
