@@ -70,5 +70,4 @@ public class UserController {
         User user = userService.removeAd(userId, adId);
         return new ResponseEntity<>(UserDTO.from(user), HttpStatus.CREATED);
     }
-
 }

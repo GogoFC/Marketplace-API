@@ -17,7 +17,6 @@ public class AdServiceImpl implements AdService {
     private final AdRepository adRepository;
 
 
-
     @Autowired
     public AdServiceImpl(AdRepository adRepository) {
         this.adRepository = adRepository;

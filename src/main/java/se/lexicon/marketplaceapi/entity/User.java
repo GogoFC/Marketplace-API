@@ -16,17 +16,11 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-
     @Column(updatable = false, unique = true)
     private String email;
-
-
     //Below value of 50 gave error.
     @Column(nullable = false, length = 100)
     private String password;
-
-
     @OneToMany(
             cascade = CascadeType.ALL
     )
@@ -56,7 +50,4 @@ public class User {
         user.setPassword(userDTO.getPassword());
         return user;
     }
-
-    
-    
 }
