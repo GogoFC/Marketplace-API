@@ -1,5 +1,6 @@
 package se.lexicon.marketplaceapi.controller;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import se.lexicon.marketplaceapi.entity.User;
 import se.lexicon.marketplaceapi.service.UserService;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -44,9 +46,14 @@ public class UserController {
     }
 
     @DeleteMapping(value = "{id}")
-    public ResponseEntity<UserDTO> deleteUser(@PathVariable final Long id){
+    public ResponseEntity<UserDTO> deleteUser(@PathVariable final Long id,
+                                              @RequestBody final UserDTO userDTO){
+        if (ObjectUtils.notEqual(userDTO.getPassword(), userService.getSpecificUser(id).getPassword())){
+            User user = new User();
+            return new ResponseEntity<>(UserDTO.from(user), HttpStatus.FORBIDDEN);
+        }
         User user = userService.deleteUser(id);
-        return new ResponseEntity<>(UserDTO.from(user), HttpStatus.CREATED);
+        return new ResponseEntity<>(UserDTO.from(user), HttpStatus.ACCEPTED);
     }
 
     @PutMapping(value = "{id}")
