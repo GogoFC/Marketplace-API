@@ -112,8 +112,13 @@ public class UserServiceImpl implements UserService{
 
      */
 
+    /*
     @Override
     public User makeAd(Long userId) {
         return null;
     }
+
+     */
+
+
 }

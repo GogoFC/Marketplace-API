@@ -5,11 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import se.lexicon.marketplaceapi.dto.AdDTO;
 import se.lexicon.marketplaceapi.dto.UserDTO;
+import se.lexicon.marketplaceapi.entity.Ad;
 import se.lexicon.marketplaceapi.entity.User;
+import se.lexicon.marketplaceapi.service.AdService;
 import se.lexicon.marketplaceapi.service.UserService;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -18,10 +22,12 @@ import java.util.stream.Collectors;
 public class UserController {
 
     private final UserService userService;
+    private final AdService adService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, AdService adService) {
         this.userService = userService;
+        this.adService = adService;
     }
 
     @PostMapping
@@ -82,4 +88,22 @@ public class UserController {
         User user = userService.removeAd(userId, adId);
         return new ResponseEntity<>(UserDTO.from(user), HttpStatus.CREATED);
     }
+
+
+
+    @PostMapping(value ="{userId}/post_ad")
+    public ResponseEntity<AdDTO> makeAd(@RequestBody final AdDTO adDTO,
+                                        @RequestBody UserDTO userDTO,
+                                        @PathVariable final Long userId) {
+
+        if (Objects.equals(userService.getSpecificUser(userId).getPassword(), userDTO.getPassword())){
+            Ad ad = adService.saveAd(Ad.from(adDTO));
+            //get id from the ad above that was just saved. Not from adDTO.getId.
+            userService.postAd(userId,ad.getId());
+            return new ResponseEntity<>(AdDTO.from(ad), HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+    }
+
 }
