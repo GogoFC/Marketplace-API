@@ -21,6 +21,11 @@ public class User {
     //Below value of 50 gave error.
     @Column(nullable = false, length = 100)
     private String password;
+    /*
+    @Transient
+    private String new_password;
+
+     */
     @OneToMany(
             cascade = CascadeType.ALL
     )

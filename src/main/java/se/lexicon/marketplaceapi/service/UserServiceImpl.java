@@ -100,11 +100,15 @@ public class UserServiceImpl implements UserService{
                 .collect(Collectors.toSet());
     }
 
+    /*
     @Override
     @Transactional
     public User changeUserPassword(Long id, User user) {
-        User editPasswordForUser = getSpecificUser(id);
-        editPasswordForUser.setPassword(user.getPassword());
-        return editPasswordForUser;
+        User userToEditThePasswordFor = getSpecificUser(id);
+        userToEditThePasswordFor.setPassword(user.getNew_password());
+        userToEditThePasswordFor.setNew_password(user.getNew_password());
+        return userToEditThePasswordFor;
     }
+
+     */
 }

@@ -18,7 +18,7 @@ public interface UserService {
 
     User getSpecificUser (Long id);
 
-    User changeUserPassword (Long id, User user);
+    //User changeUserPassword (Long id, User user);
 
 
 

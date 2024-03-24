@@ -56,12 +56,19 @@ public class UserController {
         return new ResponseEntity<>(UserDTO.from(user), HttpStatus.ACCEPTED);
     }
 
+    /*
     @PutMapping(value = "{id}")
     public ResponseEntity<UserDTO> changeUserPassword(@PathVariable final Long id,
                                                       @RequestBody final UserDTO userDTO){
-        User user = userService.changeUserPassword(id, User.from(userDTO));
-        return new ResponseEntity<>(UserDTO.from(user), HttpStatus.CREATED);
+
+        if (Objects.equals(userDTO.getPassword(), userService.getSpecificUser(id))){
+            User user = userService.changeUserPassword(id, User.from(userDTO));
+            return new ResponseEntity<>(UserDTO.from(user), HttpStatus.CREATED);
+        }
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
+
+     */
 
     @PostMapping(value = "{userId}/ads/{adId}/publish")
     public ResponseEntity<UserDTO> publishAd(@PathVariable final Long userId,

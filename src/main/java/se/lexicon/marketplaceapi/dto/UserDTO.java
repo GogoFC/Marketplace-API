@@ -25,4 +25,7 @@ public class UserDTO {
         return userDTO;
 
     }
+
+    public void setNew_password(String newPassword) {
+    }
 }
