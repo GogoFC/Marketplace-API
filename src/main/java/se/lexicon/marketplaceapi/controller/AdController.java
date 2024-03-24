@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import se.lexicon.marketplaceapi.dto.AdDTO;
 import se.lexicon.marketplaceapi.entity.Ad;
 import se.lexicon.marketplaceapi.service.AdService;
+import se.lexicon.marketplaceapi.service.UserService;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -17,14 +18,16 @@ import java.util.stream.Collectors;
 public class AdController {
 
     private final AdService adService;
-
+    private final UserService userService;
     @Autowired
-    public AdController(AdService adService) {
+    public AdController(AdService adService, UserService userService) {
         this.adService = adService;
+        this.userService = userService;
     }
 
     @PostMapping
-    public ResponseEntity<AdDTO> postAd(@RequestBody final AdDTO adDTO) {
+    public ResponseEntity<AdDTO> saveAd(@RequestBody final AdDTO adDTO) {
+
         Ad ad = adService.saveAd(Ad.from(adDTO));
         return new ResponseEntity<>(AdDTO.from(ad), HttpStatus.CREATED);
     }
@@ -55,6 +58,7 @@ public class AdController {
     @PutMapping(value = "{id}")
     public ResponseEntity<AdDTO> editAd(@PathVariable final Long id,
                                              @RequestBody final AdDTO adDTO){
+
         Ad editedAd = adService.editAd(id, Ad.from(adDTO));
         return new ResponseEntity<>(AdDTO.from(editedAd), HttpStatus.CREATED);
     }

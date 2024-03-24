@@ -10,13 +10,15 @@ public interface UserService {
 
     User deleteUser (Long id);
 
-    User postAd (Long userId, Long adId);
+    User postAd(Long userId, Long adId);
 
     User removeAd (Long userId, Long adId);
 
     Set<User> getAllUsers();
 
     User getSpecificUser (Long id);
+
+    User makeAd (Long userId);
 
     //User changeUserPassword (Long id, User user);
 

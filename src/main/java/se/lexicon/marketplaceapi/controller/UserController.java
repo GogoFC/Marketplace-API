@@ -10,7 +10,6 @@ import se.lexicon.marketplaceapi.entity.User;
 import se.lexicon.marketplaceapi.service.UserService;
 
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
