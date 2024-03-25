@@ -21,3 +21,11 @@ POST `http://localhost:8080/users/{id}/post_ad`
     "password": "password"
 }
 ```
+
+#### List Users with posted Ads
+
+GET `http://localhost:8080/users`
+
+#### List all Ads which also shows to which User the listing belongs to.
+
+GET `http://localhost:8080/ads`
