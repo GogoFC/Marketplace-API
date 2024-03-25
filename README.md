@@ -17,8 +17,9 @@
 
 
 ### Post an Ad to a User via id number
-
-`POST` `http://localhost:8080/users/{id}/post_ad`
+| Method | URI |
+|---|---|
+|`POST` | `http://localhost:8080/users/{id}/post_ad` |
 ```json
 {
     "title": "Some Title",
@@ -27,39 +28,34 @@
 }
 ```
 
----
-
-
-
-
-
 
 
 ### List all Users with their posted Ads
 
-`GET` `http://localhost:8080/users`
+| Method | URI |
+|---|---|
+| `GET` | `http://localhost:8080/users` |
 
 ### List all Ads which also shows to which User the listing belongs to.
 
-`GET` `http://localhost:8080/ads`
+| Method | URI |
+|---|---|
+| `GET` | `http://localhost:8080/ads` |
+
 
 ### List a specific Ad by id
 
-`GET` `http://localhost:8080/ads/{id}`
-
----
-
-
-
+| Method | URI |
+|---|---|
+| `GET` | `http://localhost:8080/ads/{id}` |
 
 
 
 ### Edit Ad by id (not authenticated)
 
-`PUT` `http://localhost:8080/ads/{id}`
-
----
-
+| Method | URI |
+|---|---|
+| `PUT` | `http://localhost:8080/ads/{id}` |
 
 
 
@@ -67,7 +63,9 @@
 
 ### Delete User by id number (authenticated)
 
-`DELETE` `http://localhost:8080/users/{id}`
+| Method | URI |
+|---|---|
+| `DELETE` | `http://localhost:8080/users/{id}` |
 
 ```json
 {
@@ -75,10 +73,12 @@
 }
 ```
 
-### Delete an Ad by id 
-(Semi-authenticated. All users are root users and with a valid password can delete any Ad)
+### Delete an Ad by id (Semi-authenticated) 
+All users are root users and with a valid password can delete any Ad)
 
-`DELETE` `http://localhost:8080/ads/{ad_id}`
+| Method | URI |
+|---|---|
+| `DELETE` | `http://localhost:8080/ads/{ad_id}` |
 
 user_id below
 ```json
@@ -90,10 +90,14 @@ user_id below
 ### Unpublish Ad 
 Removes entry from joined column
 
-`DELETE` `http://localhost:8080/users/{user_id}/ads/{ad_id}/unpublish`
+| Method | URI |
+|---|---|
+| `DELETE` | `http://localhost:8080/users/{user_id}/ads/{ad_id}/unpublish` |
 
 ### Re-post Ad 
 Writes user's id to `user_id` joined column in 'ad' Table.
 
-`POST` `http://localhost:8080/users/{user_id}/ads/{ad_id}/unpublish`
+| Method | URI |
+|---|---|
+| `POST` | `http://localhost:8080/users/{user_id}/ads/{ad_id}/unpublish` |
 
