@@ -62,8 +62,6 @@
 
 
 
-http://localhost:8080/users/152/ads/202/publish
-
 ### Delete User by id number (authenticated)
 
 `DELETE` `http://localhost:8080/users/{id}`
