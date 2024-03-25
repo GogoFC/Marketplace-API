@@ -4,7 +4,9 @@
 
 ### Create a User
 
-`POST` `http://localhost:8080/users`
+|---|---|
+|`POST`| `http://localhost:8080/users`|
+
 ```JSON
 {
     "email": "sawyer@aol.com",
