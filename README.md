@@ -2,7 +2,7 @@
 
 ### Create a User
 
-POST `http://localhost:8080/users`
+`POST` `http://localhost:8080/users`
 ```JSON
 {
     "email": "sawyer@aol.com",
@@ -13,8 +13,8 @@ POST `http://localhost:8080/users`
 
 ### Post an Ad to a User via id number
 
-POST `http://localhost:8080/users/{id}/post_ad`
-```JSON
+`POST` `http://localhost:8080/users/{id}/post_ad`
+```json
 {
     "title": "Some Title",
     "description": "Some description",
@@ -22,15 +22,21 @@ POST `http://localhost:8080/users/{id}/post_ad`
 }
 ```
 
-### Delete User by id number
+### Delete User by id number (authenticated)
 
-http://localhost:8080/users/{id}
+`DELETE` `http://localhost:8080/users/{id}`
 
 ```json
 {
     "password": "password"
 }
 ```
+
+### Delete an Ad by id 
+(Semi-authenticated. All users are root users and with a valid password can delete any Ad)
+
+`DELETE` `http://localhost:8080/ads/{id}`
+
 
 ### Edit user by id number (not authenticated)
 
