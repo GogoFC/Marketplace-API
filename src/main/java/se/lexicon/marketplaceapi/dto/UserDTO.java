@@ -1,5 +1,6 @@
 package se.lexicon.marketplaceapi.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import se.lexicon.marketplaceapi.entity.User;
 
@@ -11,6 +12,7 @@ import java.util.stream.Collectors;
 public class UserDTO {
     private Long id;
     private String email;
+    @NotBlank
     private String password;
     private Set<AdDTO> adsDTO = new HashSet<>();
 

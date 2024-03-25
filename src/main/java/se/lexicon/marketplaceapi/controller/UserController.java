@@ -1,5 +1,6 @@
 package se.lexicon.marketplaceapi.controller;
 
+import jakarta.validation.Valid;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,7 +32,7 @@ public class UserController {
     }
 
     @PostMapping(value = "users")
-    public ResponseEntity<UserDTO> addUser(@RequestBody final UserDTO userDTO){
+    public ResponseEntity<UserDTO> addUser(@RequestBody @Valid final UserDTO userDTO){
         User user = userService.addUser(User.from(userDTO));
         return new ResponseEntity<>(UserDTO.from(user), HttpStatus.CREATED);
     }
