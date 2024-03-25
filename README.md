@@ -51,14 +51,11 @@
 
 
 
-
-
 ### Edit Ad by id (not authenticated)
 
 `PUT` `http://localhost:8080/ads/{id}`
 
 ---
-
 
 
 
