@@ -88,14 +88,14 @@ user_id below
 }
 ```
 ### Unpublish Ad 
-Removes entry from joined column
+Removes entry from joined column `user_id` from Table `ad`.
 
 | Method | URI |
 |---|---|
 | `DELETE` | `http://localhost:8080/users/{user_id}/ads/{ad_id}/unpublish` |
 
 ### Re-post Ad 
-Writes user's id to `user_id` joined column in 'ad' Table.
+Writes user's id back to `user_id` joined column in `ad` Table.
 
 | Method | URI |
 |---|---|
