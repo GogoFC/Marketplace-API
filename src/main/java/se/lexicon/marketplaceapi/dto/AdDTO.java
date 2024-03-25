@@ -12,12 +12,14 @@ public class AdDTO {
     private String title;
     private String description;
     private UsersDTO usersDTO;
+    private String password;
 
     public static AdDTO from(Ad ad){
         AdDTO adDTO = new AdDTO();
         adDTO.setId(ad.getId());
         adDTO.setTitle(ad.getTitle());
         adDTO.setDescription(ad.getDescription());
+        adDTO.setPassword("********");
         if (Objects.nonNull(ad.getUser())){
             adDTO.setUsersDTO(UsersDTO.from(ad.getUser()));
         }

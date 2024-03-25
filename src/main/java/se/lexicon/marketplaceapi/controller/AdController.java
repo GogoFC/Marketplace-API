@@ -18,14 +18,13 @@ import java.util.stream.Collectors;
 public class AdController {
 
     private final AdService adService;
-    private final UserService userService;
+
     @Autowired
     public AdController(AdService adService, UserService userService) {
         this.adService = adService;
-        this.userService = userService;
     }
 
-    @PostMapping
+    //@PostMapping
     public ResponseEntity<AdDTO> saveAd(@RequestBody final AdDTO adDTO) {
 
         Ad ad = adService.saveAd(Ad.from(adDTO));
@@ -47,7 +46,9 @@ public class AdController {
         return new ResponseEntity<>(AdDTO.from(ad), HttpStatus.CREATED);
     }
 
-    @DeleteMapping(value = "{id}")
+
+
+    //@DeleteMapping(value = "{id}")
     public ResponseEntity<AdDTO> deleteAd(@PathVariable final Long id){
         Ad ad = adService.deleteAd(id);
         return new ResponseEntity<>(AdDTO.from(ad), HttpStatus.CREATED);
@@ -55,7 +56,7 @@ public class AdController {
 
 
 
-    @PutMapping(value = "{id}")
+    //@PutMapping(value = "{id}")
     public ResponseEntity<AdDTO> editAd(@PathVariable final Long id,
                                              @RequestBody final AdDTO adDTO){
 

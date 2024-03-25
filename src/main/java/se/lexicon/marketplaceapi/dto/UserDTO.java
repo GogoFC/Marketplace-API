@@ -1,8 +1,6 @@
 package se.lexicon.marketplaceapi.dto;
 
-import jakarta.persistence.Column;
 import lombok.Data;
-import se.lexicon.marketplaceapi.entity.Ad;
 import se.lexicon.marketplaceapi.entity.User;
 
 import java.util.HashSet;

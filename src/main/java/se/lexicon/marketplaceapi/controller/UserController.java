@@ -18,7 +18,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/")
 public class UserController {
 
     private final UserService userService;
@@ -30,13 +30,13 @@ public class UserController {
         this.adService = adService;
     }
 
-    @PostMapping
+    @PostMapping(value = "users")
     public ResponseEntity<UserDTO> addUser(@RequestBody final UserDTO userDTO){
         User user = userService.addUser(User.from(userDTO));
         return new ResponseEntity<>(UserDTO.from(user), HttpStatus.CREATED);
     }
 
-    @GetMapping
+    @GetMapping(value = "users")
     public ResponseEntity<Set<UserDTO>> getUsers(){
         Set<User> users = new HashSet<>();
         users = userService.getAllUsers();
@@ -44,18 +44,18 @@ public class UserController {
         return new ResponseEntity<>(usersDTO, HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "{id}")
+    @GetMapping(value = "/users/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable final Long id){
         User user = userService.getSpecificUser(id);
         return new ResponseEntity<>(UserDTO.from(user), HttpStatus.CREATED);
     }
 
-    @DeleteMapping(value = "{id}")
+    @DeleteMapping(value = "{id}/users")
     public ResponseEntity<UserDTO> deleteUser(@PathVariable final Long id,
                                               @RequestBody final UserDTO userDTO){
         if (ObjectUtils.notEqual(userDTO.getPassword(), userService.getSpecificUser(id).getPassword())){
             User user = new User();
-            return new ResponseEntity<>(UserDTO.from(user), HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
         }
         User user = userService.deleteUser(id);
         return new ResponseEntity<>(UserDTO.from(user), HttpStatus.ACCEPTED);
@@ -75,35 +75,71 @@ public class UserController {
 
      */
 
-    @PostMapping(value = "{userId}/ads/{adId}/publish")
-    public ResponseEntity<UserDTO> publishAd(@PathVariable final Long userId,
-                                          @PathVariable final Long adId){
-        User user = userService.postAd(userId, adId);
-        return new ResponseEntity<>(UserDTO.from(user), HttpStatus.CREATED);
+    @PostMapping(value = "users/{userId}/ads/{adId}/publish")
+    public ResponseEntity<UserDTO> rePostAd(@PathVariable final Long userId,
+                                            @PathVariable final Long adId,
+                                            @RequestBody final UserDTO userDTO){
+
+        if (Objects.equals(userService.getSpecificUser(userId).getPassword(),userDTO.getPassword())){
+            User user = userService.postAd(userId, adId);
+            return new ResponseEntity<>(UserDTO.from(user), HttpStatus.ACCEPTED);
+        }
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
-    @DeleteMapping(value = "{userId}/ads/{adId}/unpublish")
-    public ResponseEntity<UserDTO> unpublishAd(@PathVariable final Long userId,
-                                               @PathVariable final Long adId){
-        User user = userService.removeAd(userId, adId);
-        return new ResponseEntity<>(UserDTO.from(user), HttpStatus.CREATED);
+    @DeleteMapping(value = "users/{userId}/ads/{adId}/unpublish")
+    public ResponseEntity<UserDTO> unPublishAd(@PathVariable final Long userId,
+                                               @PathVariable final Long adId,
+                                               @RequestBody final UserDTO userDTO){
+        if (Objects.equals(userService.getSpecificUser(userId).getPassword(), userDTO.getPassword())){
+            User user = userService.removeAd(userId, adId);
+            return new ResponseEntity<>(UserDTO.from(user), HttpStatus.ACCEPTED);
+        }
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
 
 
-    @PostMapping(value ="{userId}/post_ad")
+    @PostMapping(value ="/users/{userId}/post_ad")
     public ResponseEntity<AdDTO> makeAd(@RequestBody final AdDTO adDTO,
-                                        @RequestBody UserDTO userDTO,
                                         @PathVariable final Long userId) {
 
-        if (Objects.equals(userService.getSpecificUser(userId).getPassword(), userDTO.getPassword())){
+
+        if (Objects.equals(userService.getSpecificUser(userId).getPassword(), adDTO.getPassword())){
             Ad ad = adService.saveAd(Ad.from(adDTO));
             //get id from the ad above that was just saved. Not from adDTO.getId.
             userService.postAd(userId,ad.getId());
             return new ResponseEntity<>(AdDTO.from(ad), HttpStatus.CREATED);
+
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
+    }
+
+    @DeleteMapping(value = "/ads/{id}")
+    public ResponseEntity<AdDTO> deleteAd(@RequestBody UserDTO userDTO,
+                                          @PathVariable final Long id
+                                          ){
+
+
+        if (Objects.equals(userService.getSpecificUser(userDTO.getId()).getPassword(), userDTO.getPassword())){
+            Ad ad = adService.deleteAd(id);
+            return new ResponseEntity<>(AdDTO.from(ad), HttpStatus.CREATED);
+        }
+
+
+
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+    }
+
+
+
+    @PutMapping(value = "/ads/{id}")
+    public ResponseEntity<AdDTO> editAd(@PathVariable final Long id,
+                                        @RequestBody final AdDTO adDTO){
+
+        Ad editedAd = adService.editAd(id, Ad.from(adDTO));
+        return new ResponseEntity<>(AdDTO.from(editedAd), HttpStatus.CREATED);
     }
 
 }

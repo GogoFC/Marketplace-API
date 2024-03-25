@@ -9,7 +9,7 @@ import se.lexicon.marketplaceapi.entity.User;
 import se.lexicon.marketplaceapi.exception.AdExistsException;
 import se.lexicon.marketplaceapi.exception.UserNotFoundException;
 import se.lexicon.marketplaceapi.repository.UserRepository;
-import java.util.HashSet;
+
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
