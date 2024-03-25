@@ -1,5 +1,7 @@
 # Marketplace API
 
+--- 
+
 ### Create a User
 
 `POST` `http://localhost:8080/users`
@@ -21,6 +23,28 @@
     "password": "password"
 }
 ```
+---
+
+### List all Users with their posted Ads
+
+`GET` `http://localhost:8080/users`
+
+#### List all Ads which also shows to which User the listing belongs to.
+
+`GET` `http://localhost:8080/ads`
+
+---
+
+
+
+### Edit user by id number (not authenticated)
+
+`PUT` `http://localhost:8080/ads/{id}`
+
+---
+
+
+http://localhost:8080/users/152/ads/202/publish
 
 ### Delete User by id number (authenticated)
 
@@ -37,19 +61,4 @@
 
 `DELETE` `http://localhost:8080/ads/{id}`
 
-
-### Edit user by id number (not authenticated)
-
-`PUT` `http://localhost:8080/ads/{id}`
-
-### List all Users with their posted Ads
-
-GET `http://localhost:8080/users`
-
-#### List all Ads which also shows to which User the listing belongs to.
-
-GET `http://localhost:8080/ads`
-
-
-http://localhost:8080/users/152/ads/202/publish
-
+---
