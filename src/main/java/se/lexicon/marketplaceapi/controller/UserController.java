@@ -51,7 +51,7 @@ public class UserController {
         return new ResponseEntity<>(UserDTO.from(user), HttpStatus.CREATED);
     }
 
-    @DeleteMapping(value = "{id}/users")
+    @DeleteMapping(value = "/users/{id}")
     public ResponseEntity<UserDTO> deleteUser(@PathVariable final Long id,
                                               @RequestBody final UserDTO userDTO){
         if (ObjectUtils.notEqual(userDTO.getPassword(), userService.getSpecificUser(id).getPassword())){
