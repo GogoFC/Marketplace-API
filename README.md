@@ -61,7 +61,8 @@
 
 
 
-### Delete User by id number (authenticated)
+### Delete User by id number (Semi-authenticated)
+All users are root users and with a valid password can delete any other user. For now.
 
 | Method | URI |
 |---|---|
@@ -74,7 +75,7 @@
 ```
 
 ### Delete an Ad by id (Semi-authenticated) 
-All users are root users and with a valid password can delete any Ad)
+All users are root users and with a valid password can delete any Ad
 
 | Method | URI |
 |---|---|
